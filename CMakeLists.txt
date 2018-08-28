@@ -3,8 +3,8 @@ project(otclient)
 
 set(VERSION "0.6.6")
 
-option(FRAMEWORK_SOUND "Use SOUND " ON)
-option(FRAMEWORK_GRAPHICS "Use GRAPHICS " ON)
+set(FRAMEWORK_SOUND "Use SOUND " ON)
+set(FRAMEWORK_GRAPHICS "Use GRAPHICS " ON)
 option(FRAMEWORK_XML "Use XML " ON)
 option(FRAMEWORK_NET "Use NET " ON)
 option(FRAMEWORK_SQL "Use SQL" OFF)
@@ -12,12 +12,14 @@ option(FRAMEWORK_SQL "Use SQL" OFF)
 include(src/framework/CMakeLists.txt)
 include(src/client/CMakeLists.txt)
 
+set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} -no-pie")
+
 # functions map for reading backtraces
 if(NOT APPLE)
     set(CMAKE_CXX_LINK_FLAGS "${CMAKE_CXX_LINK_FLAGS} -Wl,-Map=${PROJECT_NAME}.map")
 endif()
 
-option(USE_PCH "Use precompiled header (speed up compile)" OFF)
+set(USE_PCH "Use precompiled header (speed up compile)" ON)
 
 set(executable_SOURCES
     src/main.cpp
